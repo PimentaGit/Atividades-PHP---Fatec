@@ -35,6 +35,9 @@ $r->post('/ex0/resposta', function(){
 
 });
 #ex01
+#Crie um algoritmo que receba um número digitado pelo usuário e verifique se esse valor é positivo,
+#negativo ou igual a zero. A saída deve ser: "Valor Positivo", "Valor Negativo" ou "Igual a Zero".
+
 $r->get('/ex01/formulario', function(){
     include("ex01.html");
 });
@@ -55,6 +58,8 @@ $r->post('/ex01/resposta', function(){
 });
 
 #ex02 
+#Escreva um programa que leia 7 números diferentes, imprima o menor valor e imprima 
+#a posição do menor valor na sequência de entrada.
 $r->get('/ex02/formulario', function(){
         include ("ex02.html");
 });
@@ -70,10 +75,11 @@ $r->post('/ex02/resposta', function(){
    
     echo "O menor valor digitado é: {$menor}. A Posição do menor valor digitado é: {$posicao} ";
   
-    
 });
 
-#ex03 .....................................................
+#ex03 
+#Escreva um programa para calcular a soma dos dois valores de entrada. 
+#Se os dois valores forem iguais, retorne o triplo da soma.
 $r->get('/ex03/formulario', function(){
     include ('ex03.html');
 });
@@ -89,6 +95,28 @@ $r->post('/ex03/resposta', function(){
     }
 
 });
+
+#ex04 
+#Crie um algoritmo que solicite a entrada de um número, e exiba a tabuada de 0 a 10 de acordo com
+#o número solicitado, ex: Entrada = 4 Saída = 4 X 0 = 0...4 X 10 = 40.
+$r->get('/ex04/formulario', function(){
+    include ('ex04.html');
+});
+$r->post('/ex04/resposta', function(){
+    $valor = isset($_POST['valor1']) ? $_POST['valor1'] : 0;
+    echo "Valor recebido: $valor<br>"; 
+    $tabuada = 0;
+
+    while ($tabuada <= 10) {
+        $resultado = $valor * $tabuada;
+        echo "{$valor} x {$tabuada} = {$resultado}<br>";
+        $tabuada++;
+    };
+   
+
+
+});
+
 
 
 
