@@ -11,13 +11,14 @@ $r = new Php\Primeiroprojeto\Router($metodo, $caminho);
 
 #ROTAS
 
-$r->get('/olamundo', function(){
-    return "Olá mundo!";
-});
+$r->get('/olamundo', 'Php\Primeiroprojeto\Controllers\HomeController@olaMundo'); /* Namespace ...Até o @, é o csaminho, depois, o método.*/ 
 
-$r->get('/olapessoa', function(){
-    return "Olá pessoa!";
+
+$r->get('/olapessoa', function($params){
+return 'Olá'. $params[1];
 });
+$r->get('ex0/formulario', 'Php\Primeiroprojeto\Controllers\HomeController@formEx0');
+
 
 $r->get('/olapessoa/{nome}', function($params){
     return 'Olá '.$params[1];
@@ -100,29 +101,98 @@ $r->post('/ex03/resposta', function(){
 #Crie um algoritmo que solicite a entrada de um número, e exiba a tabuada de 0 a 10 de acordo com
 #o número solicitado, ex: Entrada = 4 Saída = 4 X 0 = 0...4 X 10 = 40.
 $r->get('/ex04/formulario', function(){
-    include ('ex04.html');
+    require_once ('ex04.html');
 });
 $r->post('/ex04/resposta', function(){
-    $valor = isset($_POST['valor1']) ? $_POST['valor1'] : 0;
-    echo "Valor recebido: $valor<br>"; 
-    $tabuada = 0;
+    $valor1 = $_POST['valor1'];
+    $resposta ="";
+    for($i=1; $i<=10;$i++){
+        $resposta .= "$valor1 x $i = ".($valor1 * $i). "<br/>";
+    }
+   return $resposta;
+});
 
-    while ($tabuada <= 10) {
-        $resultado = $valor * $tabuada;
-        echo "{$valor} x {$tabuada} = {$resultado}<br>";
-        $tabuada++;
-    };
+
+// chamando o formulário para inserir categoria ***************************************************************************************************************************
+$r->get('/categoria/inserir', 'Php\Primeiroprojeto\Controllers\CategoriaController@inserir'); // Nome até a classe de controle .Depois do arroba, método
+
+$r->post('/categoria/novo', 'Php\Primeiroprojeto\Controllers\CategoriaController@novo');
+
+#ex05
+#Crie um algoritmo que solicite um número, faça o cálculo fatorial e exiba o resultado na tela.
+#Ex: Entrada = 3
+#Processamento: (3 * 2) * 1
+#Saída: 6
+$r->get('/ex05/formulario', function(){
+    require_once ('ex05.html');
+});
+$r->post('/ex05/resposta', function (){
    
+        $num = $_POST['num'];
+        if ($num < 0) {
+            echo "Não é possível calcular o fatorial de um número negativo.";
+        } else {
+            $fatorial = 1;
+            for ($i = 2; $i <= $num; $i++) {
+                $fatorial *= $i;
+            }
+            echo "O fatorial de $num é: $fatorial";
+        }
+});
 
+#ex06 
+#Faça um algoritmo PHP que receba os valores A e B, imprima-os em ordem crescente em relação aos
+#seus valores. Caso os valores sejam iguais, informar o usuário e imprimir o valor em tela apenas uma vez.
+#Exemplo, para A=5, B=4 você deve imprimir na tela: "4 5".
+ #para A=5, B=5 você deve imprimir na tela: “Números iguais: 5”.
+$r->get('/ex06/formulario', function(){
+    require_once ('ex06.html');
+});
 
+$r->post('/ex06/resposta', function () {
+    $a = $_POST['a'];
+    $b = $_POST['b'];
+     if ($a < $b) {
+         echo "$a $b";
+     } elseif ($a > $b) {
+         echo "$b $a";
+     } else {
+         echo "Números iguais: $a";
+     }
+ });
+#ex07
+#Faça um programa em PHP no qual leia um valor em metros e o converta em centímetros.
+$r->get('/ex07/formulario', function(){
+    require_once ('ex07.html');
+});
+$r->post('/ex07/resposta', function(){
+    $metros = $_POST['metros'];
+    if ($metros > 0){
+        $centimetros = $metros * 100;
+        echo "$metros metro(s)  em centimetros é:  $centimetros cm";
+    }
+});
+#ex08
+#Faça um programa em PHP para uma loja de tintas. O programa deverá pedir o tamanho em metros
+#quadrados da área a ser pintada. Considere que a cobertura da tinta é de 1 litro para cada 3 metros
+#quadrados e que a tinta é vendida em latas de 18 litros, que custam R$ 80,00. Informe ao usuário a
+#quantidades de latas de tinta a serem compradas e o preço total.
+$r->get('/ex08/formulario', function(){
+    require_once ('ex08.html');
+});
+$r->post('/ex08/resposta', function(){
+    $m2 = $_POST['m2'];
+    if ($m2 > 0){
+        $totallitros = $m2 / 3;
+        $lata = ceil($totallitros / 18);
+        $valor = $lata * 80;
+        echo "Quantidade de latas de tinta a serem compradas: $lata.  Preço total: R$ $valor.";
+    }
 });
 
 
 
-
-
-
-#ROTAS
+#ROTAS.....................................
 
 $resultado = $r->handler(); // verifica se existe a rota dentro das que eu cadastrei retorna a função que será executada
 
@@ -132,6 +202,15 @@ if(!$resultado){
     die();  // mata o processo
 }
 
-echo $resultado($r->getParams());  
+if($resultado instanceof Closure){ /* Passando para uma variável a função */
+    echo $resultado($r->getParams());  
+}
+
+elseif(is_string ($resultado) ){  /*  */ 
+    $resultado = explode("@", $resultado); /*  */
+    $controller = new $resultado[0];
+    $resultado = $resultado[1];
+    echo $controller->$resultado($r->getParams());
+}
 
 
