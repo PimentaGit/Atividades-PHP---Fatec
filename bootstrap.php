@@ -189,6 +189,53 @@ $r->post('/ex08/resposta', function(){
         echo "Quantidade de latas de tinta a serem compradas: $lata.  Preço total: R$ $valor.";
     }
 });
+#ex09
+#Faça um script PHP que receba de um formulário HTML5 uma variável com o ano de nascimento de
+#uma pessoa, crie uma constante com o ano atual, calcule e mostre:
+#a. a idade dessa pessoa em anos;
+#b. quantos dias esta pessoa já viveu;
+#c. quantos anos essa pessoa terá em 2025
+$r->get('/ex09/formulario', function(){
+    require_once ('ex09.html');
+});
+$r->post('/ex09/resposta', function(){
+    $ano = $_POST['ano'];
+    if ($ano > 0){
+        $idade_em_anos = 2024 - $ano;
+        $dias = $idade_em_anos * 365;
+        $prox_ano = $idade_em_anos  + 1;
+        
+        echo "Idade dessa pessoa em anos: $idade_em_anos; <br>
+        Dias que esta pessoa já viveu: $dias; <br>
+        Anos queessa pessoa terá em 2025: $prox_ano";
+    }
+});
+#ex10
+#Crie uma página em HTML5 na qual a pessoa possa digitar seu peso e sua altura e um programa PHP
+#para o cálculo do IMC da pessoa. Defina se a pessoa está acima ou abaixo do peso. Procure referências
+#sobre este índice (o que é considerado normal, abaixo ou acima do peso). Inclua a referência (página
+#de acesso) para que a pessoa leia sobre este assunto.
+$r->get('/ex10/formulario', function(){
+    require_once ('ex10.html');
+});
+$r->post('/ex10/resposta', function(){
+    $peso = $_POST['peso'];
+    $altura = $_POST['altura'];
+    if ($altura > 0 && $peso > 0) {
+        $imc = $peso / (($altura / 100) * ($altura / 100));
+        echo "Seu IMC:  $imc";
+
+        if ($imc < 18.5) {
+            echo "<br>Você está abaixo do peso.";
+        } elseif ($imc >= 18.5 && $imc < 25) {
+            echo "<br>Você está com peso normal.";
+        } elseif ($imc >= 25 && $imc < 30) {
+            echo "<br>Você está com sobrepeso.";
+        } else {
+            echo "<br>Você está obeso.";
+        }
+    }
+});
 
 
 
