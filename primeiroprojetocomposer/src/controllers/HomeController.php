@@ -1,14 +1,15 @@
 <?php
 
-namespace Php\Primeiroprojeto\Controllers;  /* É o caminhjo que o auto load percorre, mas não o caminho das pastas. */
-
-
+namespace Php\Primeiroprojeto\Controllers;
 
 class HomeController{
-    public function olaMundo(){
+
+    public function olaMundo($params){
         return "Olá Mundo!";
     }
-    public function formEx0(){          /* O servidor enxerga até pasta public */
-        require_once("../src/Views/ex01.html");   /* Caminho para arquivos de visão, interfasces*/ 
+
+    public function formExer1($params){
+        require_once("../src/views/exer1.html");
     }
+
 }
