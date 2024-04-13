@@ -236,8 +236,21 @@ $r->post('/ex10/resposta', function(){
         }
     }
 });
+$r->get('/pessoa/inserir', 'Php\Primeiroprojeto\Controllers\pessoaController@inserir'); // Nome até a classe de controle .Depois do arroba, método
 
+$r->post('/pessoa/novo', 'Php\Primeiroprojeto\Controllers\pessoaController@novo');
 
+$r->get('/cachorro/inserir', 'Php\Primeiroprojeto\Controllers\cachorroController@inserir'); 
+
+$r->post('/cachorro/novo', 'Php\Primeiroprojeto\Controllers\cachorroController@novo');
+
+$r->get('/exame/inserir', 'Php\Primeiroprojeto\Controllers\exameController@inserir'); 
+
+$r->post('/exame/novo', 'Php\Primeiroprojeto\Controllers\exameController@novo');
+
+$r->get('/medicacao/inserir', 'Php\Primeiroprojeto\Controllers\medicacaoController@inserir'); 
+
+$r->post('/medicacao/novo', 'Php\Primeiroprojeto\Controllers\medicacaoController@novo');
 
 #ROTAS.....................................
 
