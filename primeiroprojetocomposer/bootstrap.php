@@ -253,6 +253,40 @@ $r->get('/medicacao/inserir', 'Php\Primeiroprojeto\Controllers\medicacaoControll
 $r->post('/medicacao/novo', 'Php\Primeiroprojeto\Controllers\medicacaoController@novo');
 
 #ROTAS.....................................
+# 26/04/2024 ..............................................
+
+$r->get('/categoria/{acao}/{status}','Php\Primeiroprojeto\controllers\CategoriaController@index');
+$r->get('/categoria','Php\Primeiroprojeto\controllers\CategoriaController@index');
+
+$r->get('/categoria/alterar/id/{id}','Php\Primeiroprojeto\controllers\CategoriaController@alterar');
+$r->get('/categoria/excluir/id/{id}','Php\Primeiroprojeto\controllers\CategoriaController@excluir');
+$r->post('/categoria/editar','Php\Primeiroprojeto\controllers\CategoriaController@editar');
+
+$r->post('/categoria/deletar', 'Php\Primeiroprojeto\controllers\CategoriaController@deletar');
+
+$r->get('/pessoa/{acao}/{status}','Php\Primeiroprojeto\controllers\PessoaController@index');
+$r->get('/pessoa','Php\Primeiroprojeto\controllers\PessoaController@index');
+$r->get('/pessoa/alterar/id/{id}','Php\Primeiroprojeto\controllers\pessoaController@alterar');
+$r->get('/pessoa/excluir/id/{id}','Php\Primeiroprojeto\controllers\pessoaController@excluir');
+$r->post('/pessoa/editar','Php\Primeiroprojeto\controllers\pessoaController@editar');
+
+$r->get('/cachorro/{acao}/{status}','Php\Primeiroprojeto\controllers\CachorroController@index');
+$r->get('/cachorro','Php\Primeiroprojeto\controllers\CachorroController@index');
+$r->get('/cachorro/alterar/id/{id}','Php\Primeiroprojeto\controllers\cachorroController@alterar');
+$r->get('/cachorro/excluir/id/{id}','Php\Primeiroprojeto\controllers\cachorroController@excluir');
+$r->post('/cachorro/editar','Php\Primeiroprojeto\controllers\cachorroController@editar');
+
+$r->get('/exame/{acao}/{status}','Php\Primeiroprojeto\controllers\ExameController@index');
+$r->get('/exame','Php\Primeiroprojeto\controllers\ExameController@index');
+$r->get('/exame/alterar/id/{id}','Php\Primeiroprojeto\controllers\exameController@alterar');
+$r->get('/exame/excluir/id/{id}','Php\Primeiroprojeto\controllers\exameController@excluir');
+$r->post('/exame/editar','Php\Primeiroprojeto\controllers\exameController@editar');
+
+$r->get('/medicacao/{acao}/{status}','Php\Primeiroprojeto\controllers\MedicacaoController@index');
+$r->get('/medicacao','Php\Primeiroprojeto\controllers\MedicacaoController@index');
+$r->get('/medicacao/alterar/id/{id}','Php\Primeiroprojeto\controllers\medicacaoController@alterar');
+$r->get('/medicacao/excluir/id/{id}','Php\Primeiroprojeto\controllers\medicacaoController@excluir');
+$r->post('/medicacao/editar','Php\Primeiroprojeto\controllers\medicacaoController@editar');
 
 $resultado = $r->handler(); // verifica se existe a rota dentro das que eu cadastrei retorna a função que será executada
 
